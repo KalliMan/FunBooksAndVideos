@@ -69,6 +69,16 @@ public class ExceptionMiddleware
                         Type = ex.GetType().Name
                     };
                     break;
+                case PersistenceException persistenceException:
+                    statusCode = HttpStatusCode.BadRequest;
+                    problem = new ValidationProblemDetails
+                    {
+                        Title = "Database Persistence Conflict",
+                        Status = (int)HttpStatusCode.BadRequest,
+                        Detail = persistenceException.Message,
+                        Type = ex.GetType().Name,                        
+                    };
+                    break;
                 default:
                     statusCode = HttpStatusCode.InternalServerError;
                     problem = new ValidationProblemDetails
