@@ -22,15 +22,12 @@ namespace FunBooksAndVideos.Persistence.Repositories
         public async Task<T> CreateAsync(T entity)
         {
             await DBContext.Set<T>().AddAsync(entity);
-            await DBContext.SaveChangesAsync();
-
             return entity;
         }
 
-        public async Task UpdateAsync(T entity)
+        public void Update(T entity)
         {
             DBContext.Update(entity);
-            await DBContext.SaveChangesAsync();
         }
 
         public async Task DeleteAsync(int id)
@@ -42,7 +39,6 @@ namespace FunBooksAndVideos.Persistence.Repositories
             }
 
             DBContext.Remove(entity);
-            await DBContext.SaveChangesAsync();
         }
     }
 }

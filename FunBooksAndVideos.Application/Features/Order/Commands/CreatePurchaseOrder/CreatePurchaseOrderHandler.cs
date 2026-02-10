@@ -148,7 +148,7 @@ public class CreatePurchaseOrderHandler : IRequestHandler<CreatePurchaseOrderCom
                 customer.ActivateMembership(item.MembershipType.Value);
             }
 
-            await _customerAccountRepository.UpdateAsync(customer);
+            _customerAccountRepository.Update(customer);
         }
     }
 

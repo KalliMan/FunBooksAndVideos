@@ -32,7 +32,7 @@ public class UpdateCustomerAccountHandler : IRequestHandler<UpdateCustomerAccoun
 
         customerAccount.UpdateName(request.Name);        
 
-        await _customerAccountRepository.UpdateAsync(customerAccount);
+        _customerAccountRepository.Update(customerAccount);
 
         return Unit.Value;
     }
