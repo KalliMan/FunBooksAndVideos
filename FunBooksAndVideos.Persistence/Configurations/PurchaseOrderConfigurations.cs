@@ -14,7 +14,7 @@ internal class PurchaseOrderConfigurations : IEntityTypeConfiguration<PurchaseOr
             .HasPrecision(18, 2);
 
         builder.Property(p => p.ShippingSlipData)
-            .HasColumnType("nvarchar(max)")
+            .HasColumnType("TEXT")
             .IsRequired(false);
 
         builder.HasOne<CustomerAccount>()
