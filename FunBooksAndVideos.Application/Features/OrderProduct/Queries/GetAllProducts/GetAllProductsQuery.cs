@@ -4,4 +4,4 @@ using MediatR;
 
 namespace FunBooksAndVideos.Application.Features.OrderProduct.Queries.GetAllProducts;
 
-public record GetAllProductsQuery : ICommand<IEnumerable<ProductDto>>;
+public record GetAllProductsQuery : IQuery<IEnumerable<ProductDto>>;

@@ -5,7 +5,7 @@ using FunBooksAndVideos.Domain;
 
 namespace FunBooksAndVideos.Application.MappingProfiles;
 
-internal class PurchaseOrderProfile : Profile
+public class PurchaseOrderProfile : Profile
 {
     public PurchaseOrderProfile()
     {

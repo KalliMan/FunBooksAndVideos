@@ -38,6 +38,8 @@ internal class MockCustomerAccountRepository
         mockRepo.Setup(repo => repo.IsCustomerAccountUniqueAsync(It.IsAny<string>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync((string name, CancellationToken token) => 
                 !customerAccounts.Any(c => c.Name.Equals(name, StringComparison.OrdinalIgnoreCase)));
+        mockRepo.Setup(repo => repo.ExistsAsync(It.IsAny<int>()))
+            .ReturnsAsync((int id) => customerAccounts.Any(c => c.Id == id));
         
         return mockRepo;
     }
