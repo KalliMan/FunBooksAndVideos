@@ -1,7 +1,6 @@
-﻿using System.Text.Json;
-using AutoMapper;
-using FunBooksAndVideos.Application.Contracts.Persistence;
+﻿using FunBooksAndVideos.Application.Contracts.Persistence;
 using FunBooksAndVideos.Application.Exceptions;
+using FunBooksAndVideos.Application.Features.Purchase.Processing;
 using FunBooksAndVideos.Domain;
 using FunBooksAndVideos.Domain.Enums;
 using MediatR;
@@ -13,12 +12,17 @@ public class CreatePurchaseOrderHandler : IRequestHandler<CreatePurchaseOrderCom
     private readonly IPurchaseOrderRepository _purchaseOrderRepository;
     private readonly ICustomerAccountRepository _customerAccountRepository;
     private readonly IProductRepository _productRepository;
+    private readonly PurchaseOrderProcessor _purchaseOrderProcessor;
 
-    public CreatePurchaseOrderHandler(IPurchaseOrderRepository purchaseOrderRepository, ICustomerAccountRepository customerAccountRepository, IProductRepository productRepository)
+    public CreatePurchaseOrderHandler(IPurchaseOrderRepository purchaseOrderRepository,
+        ICustomerAccountRepository customerAccountRepository,
+        IProductRepository productRepository,
+        PurchaseOrderProcessor purchaseOrderProcessor)
     {
         _purchaseOrderRepository = purchaseOrderRepository;
         _customerAccountRepository = customerAccountRepository;
         _productRepository = productRepository;
+        _purchaseOrderProcessor = purchaseOrderProcessor;
     }
 
     public async Task<int> Handle(CreatePurchaseOrderCommand request, CancellationToken cancellationToken)
@@ -32,6 +36,7 @@ public class CreatePurchaseOrderHandler : IRequestHandler<CreatePurchaseOrderCom
 
         var purchaseOrder = new PurchaseOrder(request.CustomerId);
 
+
         var physicalItems = request.Items.Where(i => i.ItemLineType != ItemLineType.Membership).ToList();
         var membershipItems = request.Items.Where(i => i.ItemLineType == ItemLineType.Membership).ToList();
 
@@ -39,15 +44,16 @@ public class CreatePurchaseOrderHandler : IRequestHandler<CreatePurchaseOrderCom
         if (physicalProductItems.Any())
         {
             purchaseOrder.AddItems(physicalProductItems);
-            GenerateShippingSlip(purchaseOrder, physicalProductItems);
         }
 
         var membershipOrderItems = GetMembershipItems(membershipItems);
         if (membershipOrderItems.Any())
         {
             purchaseOrder.AddItems(membershipOrderItems);
-            await ActivateMemberships(request.CustomerId, membershipOrderItems);
         }
+
+        PurchaseOrderProcessingContext context = new PurchaseOrderProcessingContext(purchaseOrder);
+        await _purchaseOrderProcessor.ProcessAsync(context);
 
         var created = await _purchaseOrderRepository.CreateAsync(purchaseOrder);
         return created.Id;
@@ -76,35 +82,6 @@ public class CreatePurchaseOrderHandler : IRequestHandler<CreatePurchaseOrderCom
         return items;
     }
 
-    private void GenerateShippingSlip(PurchaseOrder purchaseOrder, ICollection<PurchaseOrderItem> physicalProductItems)
-    {
-        // BR2: Generate shipping slip for physical products
-        if (!physicalProductItems.Any())
-        {
-            return; // No physical items to ship
-        }
-
-        var shippingSlip = new
-        {
-            GeneratedAt = DateTime.UtcNow,
-            OrderId = purchaseOrder.Id,
-            CustomerId = purchaseOrder.CustomerId,
-            Items = physicalProductItems.Select(item => new
-            {
-                item.Name,
-                item.Price,
-                ItemType = item.ItemLineType.ToString()
-            }).ToList()
-        };
-
-        var jsonData = JsonSerializer.Serialize(shippingSlip, new JsonSerializerOptions
-        {
-            WriteIndented = true
-        });
-
-        purchaseOrder.SetShippingSlipData(jsonData);
-    }
-
     private ICollection<PurchaseOrderItem> GetMembershipItems(List<CreatePurchaseOrderItem> membershipItems)
     {
         var items = new List<PurchaseOrderItem>();
@@ -125,31 +102,6 @@ public class CreatePurchaseOrderHandler : IRequestHandler<CreatePurchaseOrderCom
         }
 
         return items;
-    }
-
-    private async Task ActivateMemberships(int customerId, ICollection<PurchaseOrderItem> membershipItems)
-    {
-        if (membershipItems.Any())
-        {
-            // BR1: Activate memberships
-            var customer = await _customerAccountRepository.GetByIdAsync(customerId);
-            if(customer == null)
-            {
-                throw new NotFoundException($"Customer with ID {customerId} not found");
-            }
-
-            foreach (var item in membershipItems)
-            {
-                if (!item.MembershipType.HasValue)
-                {
-                    throw new BadRequestException("Membership type must be specified for membership items");
-                }
-
-                customer.ActivateMembership(item.MembershipType.Value);
-            }
-
-            _customerAccountRepository.Update(customer);
-        }
     }
 
     private async Task<Domain.Product?> GetPhysicalProduct(int productId) =>

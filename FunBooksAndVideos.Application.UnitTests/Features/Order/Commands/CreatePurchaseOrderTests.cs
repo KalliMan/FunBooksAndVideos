@@ -1,5 +1,6 @@
 using FunBooksAndVideos.Application.Contracts.Persistence;
 using FunBooksAndVideos.Application.Features.Purchase.Commands.CreatePurchaseOrder;
+using FunBooksAndVideos.Application.Features.Purchase.Processing;
 using FunBooksAndVideos.Application.UnitTests.Mocks;
 using FunBooksAndVideos.Domain.Enums;
 
@@ -10,18 +11,25 @@ public class CreatePurchaseOrderTests
     private readonly IPurchaseOrderRepository _purchaseOrderRepository;
     private readonly ICustomerAccountRepository _customerAccountRepository;
     private readonly IProductRepository _productRepository;
+    private readonly PurchaseOrderProcessor _purchaseOrderProcessor;
 
     public CreatePurchaseOrderTests()
     {
         _purchaseOrderRepository = MockPurchaseOrderRepository.GetMock().Object;
         _customerAccountRepository = MockCustomerAccountRepository.GetMock().Object;
         _productRepository = MockProductRepository.GetMock().Object;
+
+        _purchaseOrderProcessor = new PurchaseOrderProcessor(
+            [
+                new ActivateMembershipRule(_customerAccountRepository),
+                new GenerateShippingSlipRule()
+            ]);
     }
 
     [Fact]
     public async Task Handle_ValidRequest_CreatesPurchaseOrder()
     {
-        var handler = new CreatePurchaseOrderHandler(_purchaseOrderRepository, _customerAccountRepository, _productRepository);
+        var handler = new CreatePurchaseOrderHandler(_purchaseOrderRepository, _customerAccountRepository, _productRepository, _purchaseOrderProcessor);
         var command = new CreatePurchaseOrderCommand
         {
             CustomerId = 1,
@@ -39,7 +47,7 @@ public class CreatePurchaseOrderTests
     [Fact]
     public async Task Handle_MembershipPurchase_ActivatesMembership()
     {
-        var handler = new CreatePurchaseOrderHandler(_purchaseOrderRepository, _customerAccountRepository, _productRepository);
+        var handler = new CreatePurchaseOrderHandler(_purchaseOrderRepository, _customerAccountRepository, _productRepository, _purchaseOrderProcessor);
         var command = new CreatePurchaseOrderCommand
         {
             CustomerId = 1,
@@ -58,7 +66,7 @@ public class CreatePurchaseOrderTests
     [Fact]
     public async Task Handle_MultipleMembershipPurchase_ActivatesAllMemberships()
     {
-        var handler = new CreatePurchaseOrderHandler(_purchaseOrderRepository, _customerAccountRepository, _productRepository);
+        var handler = new CreatePurchaseOrderHandler(_purchaseOrderRepository, _customerAccountRepository, _productRepository, _purchaseOrderProcessor);
         var command = new CreatePurchaseOrderCommand
         {
             CustomerId = 1,
@@ -81,7 +89,7 @@ public class CreatePurchaseOrderTests
     [Fact]
     public async Task Handle_MixedPurchase_ActivatesMembershipAndGeneratesShippingSlip()
     {
-        var handler = new CreatePurchaseOrderHandler(_purchaseOrderRepository, _customerAccountRepository, _productRepository);
+        var handler = new CreatePurchaseOrderHandler(_purchaseOrderRepository, _customerAccountRepository, _productRepository, _purchaseOrderProcessor);
         var command = new CreatePurchaseOrderCommand
         {
             CustomerId = 1,
@@ -107,7 +115,7 @@ public class CreatePurchaseOrderTests
     [Fact]
     public async Task Handle_PhysicalProductsOnly_GeneratesShippingSlip()
     {
-        var handler = new CreatePurchaseOrderHandler(_purchaseOrderRepository, _customerAccountRepository, _productRepository);
+        var handler = new CreatePurchaseOrderHandler(_purchaseOrderRepository, _customerAccountRepository, _productRepository, _purchaseOrderProcessor);
         var command = new CreatePurchaseOrderCommand
         {
             CustomerId = 1,
@@ -130,7 +138,7 @@ public class CreatePurchaseOrderTests
     [Fact]
     public async Task Handle_MembershipOnly_NoShippingSlip()
     {
-        var handler = new CreatePurchaseOrderHandler(_purchaseOrderRepository, _customerAccountRepository, _productRepository);
+        var handler = new CreatePurchaseOrderHandler(_purchaseOrderRepository, _customerAccountRepository, _productRepository, _purchaseOrderProcessor);
         var command = new CreatePurchaseOrderCommand
         {
             CustomerId = 2,

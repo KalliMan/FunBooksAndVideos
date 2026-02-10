@@ -1,4 +1,5 @@
 ﻿using FunBooksAndVideos.Application.Behaviors;
+using FunBooksAndVideos.Application.Features.Purchase.Processing;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
@@ -17,6 +18,10 @@ public static class ApplicationServiceRegistration
             cfg.AddOpenBehavior(typeof(SaveChangesBehavior<,>));
             cfg.AddOpenBehavior(typeof(TransactionBehavior<,>));
         });
+
+        services.AddScoped<IPurchaseOrderRule, ActivateMembershipRule>();
+        services.AddScoped<IPurchaseOrderRule, GenerateShippingSlipRule>();
+        services.AddScoped<PurchaseOrderProcessor>();
 
         return services;
     }
