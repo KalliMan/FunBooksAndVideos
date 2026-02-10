@@ -16,7 +16,7 @@ public class ActivateMembershipRule : IPurchaseOrderRule
         _customerAccountRepository = customerAccountRepository;
     }
 
-    public async Task ApplyAsync(PurchaseOrderProcessingContext context)
+    public async Task ApplyAsync(PurchaseOrderProcessingContext context, CancellationToken token)
     {
         var membershipItems = context.MembershipItems;
         if (!membershipItems.Any())
@@ -24,7 +24,7 @@ public class ActivateMembershipRule : IPurchaseOrderRule
             return;
         }
 
-        var customer = await _customerAccountRepository.GetByIdAsync(context.CustomerId);
+        var customer = await _customerAccountRepository.GetByIdAsync(context.CustomerId, token);
         if (customer == null)
         {
             throw new NotFoundException($"Customer with ID {context.CustomerId} not found");

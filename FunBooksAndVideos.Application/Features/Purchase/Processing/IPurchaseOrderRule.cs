@@ -3,6 +3,6 @@
     public interface IPurchaseOrderRule
     {
         bool IsApplicable(PurchaseOrderProcessingContext context);
-        Task ApplyAsync(PurchaseOrderProcessingContext context);
+        Task ApplyAsync(PurchaseOrderProcessingContext context, CancellationToken token);
     }
 }

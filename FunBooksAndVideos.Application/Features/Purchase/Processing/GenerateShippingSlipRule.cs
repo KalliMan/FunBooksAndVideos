@@ -8,7 +8,7 @@ namespace FunBooksAndVideos.Application.Features.Purchase.Processing;
 /// </summary>
 public class GenerateShippingSlipRule : IPurchaseOrderRule
 {
-    public async Task ApplyAsync(PurchaseOrderProcessingContext context)
+    public async Task ApplyAsync(PurchaseOrderProcessingContext context, CancellationToken _)
     {
         var physicalProductItems = context.PhysicalItems;        
         if (!physicalProductItems.Any())

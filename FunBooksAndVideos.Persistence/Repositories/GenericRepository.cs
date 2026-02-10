@@ -19,6 +19,9 @@ namespace FunBooksAndVideos.Persistence.Repositories
         public async Task<T?> GetByIdAsync(int id)
             => await DBContext.Set<T>().FindAsync(id);
 
+        public async Task<T?> GetByIdAsync(int id, CancellationToken cancellationToken)
+            => await DBContext.Set<T>().FindAsync(id, cancellationToken);
+
         public async Task<T> CreateAsync(T entity)
         {
             await DBContext.Set<T>().AddAsync(entity);

@@ -53,7 +53,7 @@ public class CreatePurchaseOrderHandler : IRequestHandler<CreatePurchaseOrderCom
         }
 
         PurchaseOrderProcessingContext context = new PurchaseOrderProcessingContext(purchaseOrder);
-        await _purchaseOrderProcessor.ProcessAsync(context);
+        await _purchaseOrderProcessor.ProcessAsync(context, cancellationToken);
 
         var created = await _purchaseOrderRepository.CreateAsync(purchaseOrder);
         return created.Id;

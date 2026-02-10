@@ -9,13 +9,13 @@ public class PurchaseOrderProcessor
         Rules = rules;
     }
 
-    public async Task ProcessAsync(PurchaseOrderProcessingContext context)
+    public async Task ProcessAsync(PurchaseOrderProcessingContext context, CancellationToken token)
     {
         foreach (var rule in Rules)
         {
             if(rule.IsApplicable(context))
             {
-                await rule.ApplyAsync(context);
+                await rule.ApplyAsync(context, token);
             }
         }
     }
