@@ -1,7 +1,6 @@
 ﻿using FunBooksAndVideos.Application.Contracts.Persistence;
 using FunBooksAndVideos.Application.Exceptions;
 using FunBooksAndVideos.Persistence.DatabaseContext;
-using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 
