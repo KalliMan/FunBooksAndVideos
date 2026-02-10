@@ -13,7 +13,7 @@ public class CustomerAccountConfiguration : IEntityTypeConfiguration<CustomerAcc
             .IsRequired()
             .HasMaxLength(100);
 
-        builder.Property(c => c.MembershipTypes)
+        builder.Property(c => c.MembershipType)
             .IsRequired()
             .HasConversion<int>() // store enum as int
             .HasDefaultValue(MembershipType.None);
