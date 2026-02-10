@@ -1,5 +1,4 @@
 ﻿using System.Text.Json;
-using System.Threading.Tasks.Dataflow;
 using AutoMapper;
 using FunBooksAndVideos.Application.Contracts.Persistence;
 using FunBooksAndVideos.Application.Exceptions;
@@ -11,14 +10,12 @@ namespace FunBooksAndVideos.Application.Features.Purchase.Commands.CreatePurchas
 
 public class CreatePurchaseOrderHandler : IRequestHandler<CreatePurchaseOrderCommand, int>
 {
-    private readonly IMapper _mapper;
     private readonly IPurchaseOrderRepository _purchaseOrderRepository;
     private readonly ICustomerAccountRepository _customerAccountRepository;
     private readonly IProductRepository _productRepository;
 
-    public CreatePurchaseOrderHandler(IMapper mapper, IPurchaseOrderRepository purchaseOrderRepository, ICustomerAccountRepository customerAccountRepository, IProductRepository productRepository)
+    public CreatePurchaseOrderHandler(IPurchaseOrderRepository purchaseOrderRepository, ICustomerAccountRepository customerAccountRepository, IProductRepository productRepository)
     {
-        _mapper = mapper;
         _purchaseOrderRepository = purchaseOrderRepository;
         _customerAccountRepository = customerAccountRepository;
         _productRepository = productRepository;

@@ -9,7 +9,10 @@ internal class CustomerAccountProfile: Profile
 {
     public CustomerAccountProfile()
     {
-        CreateMap<CustomerAccountDto, CustomerAccount>();
+        CreateMap<CustomerAccount, CustomerAccountDto>()
+            .ForMember(c => c.MembershipTypeString,
+                opt => opt.MapFrom(src => src.MembershipTypes.ToString()));
+            
         CreateMap<CreateCustomerAccountCommand, CustomerAccount>();
     }
 }

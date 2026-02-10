@@ -6,5 +6,7 @@ public class CustomerAccountDto
 {
     public int Id { get; set; }
     public string Name { get; set; } = string.Empty;
-    public IEnumerable<MembershipType>? MembershipTypes { get; set; }
+    public MembershipType? MembershipType { get; set; }
+
+    public string? MembershipTypeString { get; set; }
 }

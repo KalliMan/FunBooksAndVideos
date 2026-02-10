@@ -13,9 +13,9 @@ namespace FunBooksAndVideos.Api.Controllers
     [ApiController]
     public class CustomerAccountController : ControllerBase
     {
-        private readonly ILogger<ProductController> _logger;
+        private readonly ILogger<CustomerAccountController> _logger;
         private readonly IMediator _mediator;
-        public CustomerAccountController(ILogger<ProductController> logger, IMediator mediator)
+        public CustomerAccountController(ILogger<CustomerAccountController> logger, IMediator mediator)
         {
             _logger = logger;
             _mediator = mediator;
@@ -50,13 +50,12 @@ namespace FunBooksAndVideos.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Post(CreateCustomerAccountRequest request)
         {
-            var command = new CreateCustomerAccountCommand(request.Name, request.MembershipTypes);
+            var command = new CreateCustomerAccountCommand(request.Name);
             var id = await _mediator.Send(command);
 
             _logger.LogInformation("Created new customer account with ID {Id}", id);
             return CreatedAtAction(nameof(Get), new { id }, null);
         }
-
 
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(int id, [FromBody] UpdateCustomerAccountRequest request)
