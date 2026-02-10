@@ -1,0 +1,54 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35527.113
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{5A6A1C47-862F-4C70-A4C9-DA9AB99CD258}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{E75459B2-FBEF-4BE3-B895-97D582B8FBD1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{551BB2C8-99F9-4AE0-8BE1-4CCFFE55659F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{2AE53A73-0C5C-4B85-9E91-894B741AFCB0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunBooksAndVideos.Domain", "FunBooksAndVideos.Domain\FunBooksAndVideos.Domain.csproj", "{93A8D0A9-65D8-4B05-AA86-AE79F294AADB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunBooksAndVideos.Application", "FunBooksAndVideos.Application\FunBooksAndVideos.Application.csproj", "{41BA9F16-5495-4B44-B144-E8885952D090}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunBooksAndVideos.Persistence", "FunBooksAndVideos.Persistence\FunBooksAndVideos.Persistence.csproj", "{5F8E7323-52AF-45E3-9729-1D44342F4F2F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunBooksAndVideos.Api", "FunBooksAndVideos.Api\FunBooksAndVideos.Api.csproj", "{04375146-9990-43E5-A701-F318721C25D9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{93A8D0A9-65D8-4B05-AA86-AE79F294AADB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93A8D0A9-65D8-4B05-AA86-AE79F294AADB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93A8D0A9-65D8-4B05-AA86-AE79F294AADB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93A8D0A9-65D8-4B05-AA86-AE79F294AADB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41BA9F16-5495-4B44-B144-E8885952D090}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41BA9F16-5495-4B44-B144-E8885952D090}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41BA9F16-5495-4B44-B144-E8885952D090}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41BA9F16-5495-4B44-B144-E8885952D090}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F8E7323-52AF-45E3-9729-1D44342F4F2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F8E7323-52AF-45E3-9729-1D44342F4F2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F8E7323-52AF-45E3-9729-1D44342F4F2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F8E7323-52AF-45E3-9729-1D44342F4F2F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04375146-9990-43E5-A701-F318721C25D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04375146-9990-43E5-A701-F318721C25D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04375146-9990-43E5-A701-F318721C25D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04375146-9990-43E5-A701-F318721C25D9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{93A8D0A9-65D8-4B05-AA86-AE79F294AADB} = {5A6A1C47-862F-4C70-A4C9-DA9AB99CD258}
+		{41BA9F16-5495-4B44-B144-E8885952D090} = {5A6A1C47-862F-4C70-A4C9-DA9AB99CD258}
+		{5F8E7323-52AF-45E3-9729-1D44342F4F2F} = {E75459B2-FBEF-4BE3-B895-97D582B8FBD1}
+		{04375146-9990-43E5-A701-F318721C25D9} = {551BB2C8-99F9-4AE0-8BE1-4CCFFE55659F}
+	EndGlobalSection
+EndGlobal
