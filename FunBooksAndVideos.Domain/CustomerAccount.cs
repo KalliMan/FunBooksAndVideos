@@ -7,7 +7,7 @@ namespace FunBooksAndVideos.Domain;
 public class CustomerAccount: BaseEntity
 {
     public string Name { get; private set; } = string.Empty;
-    public MembershipType MembershipTypes { get; private set; } = MembershipType.None;
+    public MembershipType MembershipType { get; private set; } = MembershipType.None;
 
     public CustomerAccount()
     {        
@@ -40,11 +40,11 @@ public class CustomerAccount: BaseEntity
             throw new InvalidMembershipException(membershipType, "Cannot activate 'None' membership");
         }
 
-        MembershipTypes |= membershipType;
+        MembershipType |= membershipType;
     }
 
     public bool HasMembership(MembershipType type) =>
-        MembershipTypes.HasFlag(type);
+        MembershipType.HasFlag(type);
     public bool IsPremiumMember() =>
-        (MembershipTypes & MembershipType.Premium) == MembershipType.Premium;
+        (MembershipType & MembershipType.Premium) == MembershipType.Premium;
 }

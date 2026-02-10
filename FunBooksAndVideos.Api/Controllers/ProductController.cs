@@ -1,4 +1,4 @@
-using FunBooksAndVideos.Application.Features.Product.Queries.GetAllProducts;
+using FunBooksAndVideos.Application.Features.OrderProduct.Queries.GetAllProducts;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

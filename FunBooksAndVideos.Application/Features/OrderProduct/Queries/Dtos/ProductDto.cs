@@ -1,6 +1,6 @@
 using FunBooksAndVideos.Domain.Enums;
 
-namespace FunBooksAndVideos.Application.Features.Product.Queries.Dtos;
+namespace FunBooksAndVideos.Application.Features.OrderProduct.Queries.Dtos;
 
 public class ProductDto
 {

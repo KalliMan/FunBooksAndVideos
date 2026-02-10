@@ -1,11 +1,11 @@
 using AutoMapper;
 using FunBooksAndVideos.Application.Contracts.Persistence;
-using FunBooksAndVideos.Application.Features.Product.Queries.Dtos;
+using FunBooksAndVideos.Application.Features.OrderProduct.Queries.Dtos;
 using FunBooksAndVideos.Domain.Enums;
 using FunBooksAndVideos.Domain;
 using MediatR;
 
-namespace FunBooksAndVideos.Application.Features.Product.Queries.GetAllProducts;
+namespace FunBooksAndVideos.Application.Features.OrderProduct.Queries.GetAllProducts;
 
 public class GetAllProductsHandler : IRequestHandler<GetAllProductsQuery, IEnumerable<ProductDto>>
 {

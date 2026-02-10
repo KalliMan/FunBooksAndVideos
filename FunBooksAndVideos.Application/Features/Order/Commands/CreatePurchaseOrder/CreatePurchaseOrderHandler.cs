@@ -31,17 +31,23 @@ public class CreatePurchaseOrderHandler : IRequestHandler<CreatePurchaseOrderCom
         }
 
         var purchaseOrder = new PurchaseOrder(request.CustomerId);
-        
+
         var physicalItems = request.Items.Where(i => i.ItemLineType != ItemLineType.Membership).ToList();
         var membershipItems = request.Items.Where(i => i.ItemLineType == ItemLineType.Membership).ToList();
 
         var physicalProductItems = await GetPhysicalProductItems(physicalItems);
-        purchaseOrder.AddItems(physicalProductItems);
-        GenerateShippingSlip(purchaseOrder, physicalProductItems);
+        if (physicalProductItems.Any())
+        {
+            purchaseOrder.AddItems(physicalProductItems);
+            GenerateShippingSlip(purchaseOrder, physicalProductItems);
+        }
 
         var membershipOrderItems = GetMembershipItems(membershipItems);
-        purchaseOrder.AddItems(membershipOrderItems);
-        await ActivateMemberships(request.CustomerId, membershipOrderItems);
+        if (membershipOrderItems.Any())
+        {
+            purchaseOrder.AddItems(membershipOrderItems);
+            await ActivateMemberships(request.CustomerId, membershipOrderItems);
+        }
 
         var created = await _purchaseOrderRepository.CreateAsync(purchaseOrder);
         return created.Id;
