@@ -47,7 +47,6 @@ public class CreatePurchaseOrderHandler : IRequestHandler<CreatePurchaseOrderCom
         return created.Id;
     }
 
-
     private async Task<ICollection<PurchaseOrderItem>> GetPhysicalProductItems(List<CreatePurchaseOrderItem> physicalItems)
     {
         var items = new List<PurchaseOrderItem>();

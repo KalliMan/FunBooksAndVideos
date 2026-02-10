@@ -50,10 +50,8 @@ namespace FunBooksAndVideos.Api.Controllers
                 CustomerId = request.CustomerId,
                 Items = request.Items.Select(i => new CreatePurchaseOrderItem
                 {
-                    ProductId = i.ProductId,
-                    Name = i.Name,
-                    Price = i.Price,
                     ItemLineType = i.ItemLineType,
+                    ProductId = i.ProductId,
                     MembershipType = i.MembershipType
                 }).ToList()
             };

@@ -23,8 +23,8 @@ internal class PurchaseOrderConfigurations : IEntityTypeConfiguration<PurchaseOr
             .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasMany(p => p.Items)
-               .WithOne()
-               .HasForeignKey("PurchaseOrderId")
-               .OnDelete(DeleteBehavior.Cascade);
+             .WithOne()
+             .HasForeignKey("PurchaseOrderId")
+             .OnDelete(DeleteBehavior.Cascade);
     }
 }

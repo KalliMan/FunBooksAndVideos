@@ -1,5 +1,4 @@
-﻿using System.Data.Common;
-using FunBooksAndVideos.Application.Contracts.Persistence;
+﻿using FunBooksAndVideos.Application.Contracts.Persistence;
 using FunBooksAndVideos.Domain;
 using FunBooksAndVideos.Persistence.DatabaseContext;
 using Microsoft.EntityFrameworkCore;
