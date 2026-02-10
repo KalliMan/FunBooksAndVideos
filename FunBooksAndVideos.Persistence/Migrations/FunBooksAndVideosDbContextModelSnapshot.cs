@@ -38,7 +38,7 @@ namespace FunBooksAndVideos.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CustomerAccounts");
+                    b.ToTable("CustomerAccounts", (string)null);
                 });
 
             modelBuilder.Entity("FunBooksAndVideos.Domain.Product", b =>
@@ -72,7 +72,7 @@ namespace FunBooksAndVideos.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
 
                     b.HasData(
                         new
@@ -172,7 +172,7 @@ namespace FunBooksAndVideos.Persistence.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("PurchaseOrders");
+                    b.ToTable("PurchaseOrders", (string)null);
                 });
 
             modelBuilder.Entity("FunBooksAndVideos.Domain.PurchaseOrderItem", b =>
@@ -209,7 +209,7 @@ namespace FunBooksAndVideos.Persistence.Migrations
 
                     b.HasIndex("PurchaseOrderId");
 
-                    b.ToTable("PurchaseOrderItems");
+                    b.ToTable("PurchaseOrderItems", (string)null);
                 });
 
             modelBuilder.Entity("FunBooksAndVideos.Domain.PurchaseOrder", b =>

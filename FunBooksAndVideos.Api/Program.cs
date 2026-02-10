@@ -1,3 +1,4 @@
+using FunBooksAndVideos.Api.Middleware;
 using FunBooksAndVideos.Application;
 using FunBooksAndVideos.Persistence;
 
@@ -21,6 +22,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseHttpsRedirection();
 

@@ -11,9 +11,9 @@ namespace FunBooksAndVideos.Api.Controllers
     [Route("api/[controller]")]
     public class PurchaseOrderController : ControllerBase
     {
-        private readonly ILogger<ProductController> _logger;
+        private readonly ILogger<PurchaseOrderController> _logger;
         private readonly IMediator _mediator;
-        public PurchaseOrderController(ILogger<ProductController> logger, IMediator mediator)
+        public PurchaseOrderController(ILogger<PurchaseOrderController> logger, IMediator mediator)
         {
             _logger = logger;
             _mediator = mediator;

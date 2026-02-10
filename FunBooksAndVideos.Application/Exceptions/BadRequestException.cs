@@ -4,7 +4,7 @@ namespace FunBooksAndVideos.Application.Exceptions;
 
 public class BadRequestException: Exception
 {
-    public IEnumerable<string>? ValidationErrors { get; private set; }
+    public IDictionary<string, string[]>? ValidationErrors { get; private set; }
 
     public BadRequestException(string message) : base(message)
     {
@@ -13,6 +13,6 @@ public class BadRequestException: Exception
     public BadRequestException(string message, ValidationResult validationResult)
         : base(message)
     {
-        ValidationErrors = validationResult.Errors?.Select(e => e.ErrorMessage).ToList();
+        ValidationErrors = validationResult.ToDictionary();
     }
 }
