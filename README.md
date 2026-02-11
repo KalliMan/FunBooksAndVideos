@@ -19,6 +19,16 @@ FunBooksAndVideos is an e-commerce shop where customers can view books and watch
 
 Swagger UI: https://localhost:7245/swagger/index.html **Note** replace the URL if needed
 
+## CI - Build & Artifacts. 
+This project includes Github build action & Artifact
+
+To download it:
+1. Go to GitHub → Actions
+2. Open the latest CI run
+3. Scroll to Artifacts
+4. Download:
+    FunBooksAndVideos.Api (published API output)
+
 ## Controllers
 1. CustomerAccount: full CRUD
 2. Product: GET all only
