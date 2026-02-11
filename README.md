@@ -5,30 +5,69 @@ Demonstration Application implemented using Clean Architecture.
 ## Overview
 FunBooksAndVideosis an e-commerce shop where customers can view books and watch online videos. Users can have memberships for the book dub, the video club or for both clubs (premium).
 
-## Technology Stack and Design Patterns
-  **Clean Architecture**<br>
-  **MediatoR & MediratoR behaviors** <br>
-  **AutoMapper** <br>
-  **FluentValidation** <br>
-  **EF** <br>
-  **SQLite** <br>
-  **Custom Exception Middleware** <br>
-  **Unit Tests** <br>
+## Technology Stack and Design Patterns:
+  1. **Clean Architecture**
+  2. **Swagger**
+  3. **MediatoR & MediratoR behaviors**
+  4. **AutoMapper**
+  5. **FluentValidation**
+  6. **EF**
+  7. **SQLite**
+  8. **Custom Exception Middleware**
+  9. **Unit Tests**
+
+## Usage
+
+### Setup the Database
+    
+    PM> dotnet ef database update --project FunBooksAndVideos.Persistence --startup-project FunBooksAndVideos.Api  
+Or from the PMC Set the Default Project to FunBooksAndVideos.Persistence and:
+
+    PM> Update-database
+
+### APIs
+**swagger URL** https://localhost:7245/swagger/index.html <br>
+**NOTE** all commands bellow are compatible with Windows Command Prompt. You can access API methods directly from the swagger.
+
+### User Account CRUD
+
+#### Create User Account
+   
+    curl -k -X POST "https://localhost:7245/api/CustomerAccount" ^
+       -H "Content-Type: application/json" ^
+       -d "{\"name\":\"John Smith\"}"
+    
+#### Get ALL
+    curl -k "https://localhost:7245/api/CustomerAccount"
+
+#### Get By Specific ID
+    curl -k "https://localhost:7245/api/CustomerAccount/1"    
+
+#### Update Existing
+
+    curl -k -X PUT "https://localhost:7245/api/CustomerAccount/1" ^
+      -H "Content-Type: application/json" ^
+      -d "{\"name\":\"John Smith Jr\"}"  
+
+#### Delete
+
+    curl -k -X DELETE "https://localhost:7245/api/CustomerAccount/1"    
+
+### Product Get ALL
+
+    curl -k "https://localhost:7245/api/Product"
+
+
 
 ## Project Structure
 
-**Core/FunBooksAndVideos.Domain**:       Domain project that contains all core entitties<br>
-**Core/FunBooksAndVideos.Application**:  App project that contains all contracts, features (including the business rules)<br>
-**Infrastructure/FunBooksAndVideos.Persistence**  Project responsible for Entity Persistance and UoF pattern <br>
-**API/FunBooksAndVideos.Api**  Defines Controllers for API <br>
-**Test/FunBooksAndVideos.Application.UnitTests** Defines Unit Tests to test the Application features.<br>
-
 ### Core/FunBooksAndVideos.Domain
 Domain project that contains all core entitties:
-**CustomerAccount**<br>
-**Product**<br>
-**PurchaseOrder**<br>
-**PurchaseOrderItem**<br>
+
+1. **CustomerAccount**
+2. **Product**
+3. **PurchaseOrder**
+4. **PurchaseOrderItem**
 
 **ItemLineType**, **MembershipType**: Defines the item types and membership types.
 
@@ -60,6 +99,9 @@ Custom Mapping Profiles for Automapper
 
 ### Infrastructure/FunBooksAndVideos.Persistence
 Project responsible for Entity Persistance and UoF pattern.
+1. Implementation of the DbContext & Entity Framework for SQLite DB Server.
+2. Implements the Entity and UoF patterns
+3. Responsible for defining the DB Schema & Migrations
 
 ### API/FunBooksAndVideos.Api
 Defines Controllers for REST APIs
@@ -67,3 +109,7 @@ Defines Controllers for REST APIs
 1. **CustomerAccountController**: GET/POST/PUT/DELETE requests for CustomerAccount
 2. **ProductController**: GET access to all predefines Products from the system
 3. **PurchaseOrderController**: POST request for create a new Order; GET access to created orders.
+
+
+### Test/FunBooksAndVideos.Application.UnitTests
+Defines Unit Tests to test the Application features.
