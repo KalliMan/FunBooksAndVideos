@@ -38,7 +38,11 @@ Swagger UI: https://localhost:7245/swagger/index.html **Note** replace the URL i
 ## Usage
 
 ### Setup the Database
-    
+
+#### SQLite Database included    
+This repo already includes a sample SQLite database with demo data at FunBooksAndVideos.db ready for use.
+
+#### Seed a new Database
     PM> dotnet ef database update --project FunBooksAndVideos.Persistence --startup-project FunBooksAndVideos.Api  
 Or from the PMC Set the Default Project to FunBooksAndVideos.Persistence and:
 
