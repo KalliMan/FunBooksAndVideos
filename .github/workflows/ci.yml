@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [ "main", "master" ]
+    branches: [ "master" ]
 
 jobs:
   build-and-test:
@@ -16,7 +16,8 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '9.0.x'
-          cache: true
+          # Enable caching only if you commit NuGet lock files (packages.lock.json)
+          # cache: true
 
       - name: Restore
         run: dotnet restore FunBooksAndVideos.sln
