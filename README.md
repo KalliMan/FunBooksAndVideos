@@ -57,7 +57,22 @@ Or from the PMC Set the Default Project to FunBooksAndVideos.Persistence and:
 
     curl -k "https://localhost:7245/api/Product"
 
+### PurchaseOrder
 
+#### Create New
+    curl -k -X POST "https://localhost:7245/api/PurchaseOrder" ^
+       -H "Content-Type: application/json" ^
+       -d "{\"customerId\":1,\"items\":[{\"itemLineType\":0,\"productId\":1,\"membershipType\":0},{\"itemLineType\":3,\"productId\":0,\"membershipType\":1}]}"
+
+    curl -k -X POST "https://localhost:7245/api/PurchaseOrder" ^
+       -H "Content-Type: application/json" ^
+       -d "{\"customerId\":3,\"items\":[{\"itemLineType\":0,\"productId\":1,\"membershipType\":0},{\"itemLineType\":3,\"productId\":0,\"membershipType\":1}, {\"itemLineType\":3,\"productId\":0,\"membershipType\":2}]}"
+
+#### Get All
+    curl -k "https://localhost:7245/api/PurchaseOrder"
+
+#### Get By ID
+    curl -k "https://localhost:7245/api/PurchaseOrder/1"
 
 ## Project Structure
 
