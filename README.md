@@ -3,15 +3,34 @@
 Demonstration Application implemented using Clean Architecture.
 
 ## Overview
-FunBooksAndVideosis an e-commerce shop where customers can view books and watch online videos. Users can have memberships for the book dub, the video club or for both clubs (premium).
+FunBooksAndVideos is an e-commerce shop where customers can view books and watch online videos. Customers can also purchase memberships for the Book Club, the Video Club, or both (Premium).
+
+## Business Rules
+1. **BR1**: If the purchase order contains a membership, activate it immediately for the customer.
+2. **BR2**: If the purchase order contains physical products (books/videos), generate a shipping slip.
+
+## Prerequisites
+1. .NET 9 SDK
+2. For EF migrations: dotnet-ef tool (optional if you use Visual Studio Package Manager Console)
+
+## Run
+    dotnet restore
+    dotnet run --project FunBooksAndVideos.Api
+
+Swagger UI: https://localhost:7245/swagger/index.html **Note** replace the URL if needed
+
+## Controllers
+1. CustomerAccount: full CRUD
+2. Product: GET all only
+3. PurchaseOrder: POST create + GET read
 
 ## Technology Stack and Design Patterns:
   1. **Clean Architecture**
-  2. **Swagger**
-  3. **MediatoR & MediratoR behaviors**
+  2. **Swagger (OpenAPI)**
+  3. **MediatR & MediatR pipeline behaviors**
   4. **AutoMapper**
   5. **FluentValidation**
-  6. **EF**
+  6. **Entity Framework ORM**
   7. **SQLite**
   8. **Custom Exception Middleware**
   9. **Unit Tests**
@@ -27,7 +46,7 @@ Or from the PMC Set the Default Project to FunBooksAndVideos.Persistence and:
 
 ### APIs
 **swagger URL** https://localhost:7245/swagger/index.html <br>
-**NOTE** all commands bellow are compatible with Windows Command Prompt. If this does not work for You, please use the swagger directly.
+**NOTE** all commands below are compatible with Windows Command Prompt. If they do not work for You, please use the swagger directly.
 
 ### User Account CRUD
 
@@ -74,10 +93,13 @@ Or from the PMC Set the Default Project to FunBooksAndVideos.Persistence and:
 #### Get By ID
     curl -k "https://localhost:7245/api/PurchaseOrder/1"
 
+### Tests
+    dotnet test
+
 ## Project Structure
 
 ### Core/FunBooksAndVideos.Domain
-Domain project that contains all core entitties:
+Domain project that contains all core entities:
 
 1. **CustomerAccount**
 2. **Product**
@@ -107,13 +129,13 @@ Implementation of the Save and Transaction behavior patterns. E.g. Mediator open
 2. Transaction Scope for all commands that requires multiple changes grouped in atomic operation.
 
 #### Application related Exceptions
-Custome Exceptions for validation errors, persistence problems etc...
+Custom Exceptions for validation errors, persistence problems etc...
 
 #### Mapping Profiles
 Custom Mapping Profiles for Automapper
 
 ### Infrastructure/FunBooksAndVideos.Persistence
-Project responsible for Entity Persistance and UoF pattern.
+Project responsible for Entity Persistence and UoF pattern.
 1. Implementation of the DbContext & Entity Framework for SQLite DB Server.
 2. Implements the Entity and UoF patterns
 3. Responsible for defining the DB Schema & Migrations
@@ -122,7 +144,7 @@ Project responsible for Entity Persistance and UoF pattern.
 Defines Controllers for REST APIs
 
 1. **CustomerAccountController**: GET/POST/PUT/DELETE requests for CustomerAccount
-2. **ProductController**: GET access to all predefines Products from the system
+2. **ProductController**: GET access to all predefined Products from the system
 3. **PurchaseOrderController**: POST request for create a new Order; GET access to created orders.
 
 
