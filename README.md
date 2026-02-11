@@ -27,7 +27,7 @@ Or from the PMC Set the Default Project to FunBooksAndVideos.Persistence and:
 
 ### APIs
 **swagger URL** https://localhost:7245/swagger/index.html <br>
-**NOTE** all commands bellow are compatible with Windows Command Prompt. You can access API methods directly from the swagger.
+**NOTE** all commands bellow are compatible with Windows Command Prompt. If this does not work for You, please use the swagger directly.
 
 ### User Account CRUD
 
