@@ -18,6 +18,8 @@ internal class MockCustomerAccountRepository
         mockRepo.Setup(repo => repo.GetAllAsync()).ReturnsAsync(customerAccounts);
         mockRepo.Setup(repo => repo.GetByIdAsync(It.IsAny<int>()))
             .ReturnsAsync((int id) => customerAccounts.FirstOrDefault(c => c.Id == id));
+        mockRepo.Setup(repo => repo.GetByIdAsync(It.IsAny<int>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync((int id, CancellationToken token) => customerAccounts.FirstOrDefault(c => c.Id == id));
         mockRepo.Setup(repo => repo.CreateAsync(It.IsAny<CustomerAccount>()))
             .ReturnsAsync((CustomerAccount customer) =>
             {
