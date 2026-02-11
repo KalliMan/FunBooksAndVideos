@@ -26,4 +26,20 @@ jobs:
         run: dotnet build FunBooksAndVideos.sln -c Release --no-restore
 
       - name: Test
-        run: dotnet test FunBooksAndVideos.sln -c Release --no-build --verbosity normal
+        run: dotnet test FunBooksAndVideos.sln -c Release --no-build --verbosity normal --logger "trx" --results-directory "artifacts/test-results"
+
+      - name: Publish API
+        run: dotnet publish FunBooksAndVideos.Api/FunBooksAndVideos.Api.csproj -c Release --no-build -o "artifacts/api"
+
+      - name: Upload API artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: FunBooksAndVideos.Api
+          path: artifacts/api
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: artifacts/test-results
