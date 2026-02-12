@@ -7,7 +7,7 @@ using MediatR;
 
 namespace FunBooksAndVideos.Application.Features.Purchase.Commands.CreatePurchaseOrder;
 
-public class CreatePurchaseOrderHandler : IRequestHandler<CreatePurchaseOrderCommand, int>
+public class CreatePurchaseOrderHandler : IRequestHandler<CreatePurchaseOrderCommand, PurchaseOrder>
 {
     private readonly IPurchaseOrderRepository _purchaseOrderRepository;
     private readonly ICustomerAccountRepository _customerAccountRepository;
@@ -25,7 +25,7 @@ public class CreatePurchaseOrderHandler : IRequestHandler<CreatePurchaseOrderCom
         _purchaseOrderProcessor = purchaseOrderProcessor;
     }
 
-    public async Task<int> Handle(CreatePurchaseOrderCommand request, CancellationToken cancellationToken)
+    public async Task<PurchaseOrder> Handle(CreatePurchaseOrderCommand request, CancellationToken cancellationToken)
     {
         var validator = new CreatePurchaseOrderCommandValidator(_customerAccountRepository);
         var validationResult = await validator.ValidateAsync(request, cancellationToken);
@@ -56,7 +56,7 @@ public class CreatePurchaseOrderHandler : IRequestHandler<CreatePurchaseOrderCom
         await _purchaseOrderProcessor.ProcessAsync(context, cancellationToken);
 
         var created = await _purchaseOrderRepository.CreateAsync(purchaseOrder);
-        return created.Id;
+        return created;
     }
 
     private async Task<ICollection<PurchaseOrderItem>> GetPhysicalProductItems(List<CreatePurchaseOrderItem> physicalItems)

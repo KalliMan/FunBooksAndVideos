@@ -41,7 +41,7 @@ public class CreatePurchaseOrderTests
 
         var result = await handler.Handle(command, CancellationToken.None);
 
-        Assert.True(result > 0);
+        Assert.True(result.Id > 0);
     }
 
     [Fact]
@@ -100,14 +100,14 @@ public class CreatePurchaseOrderTests
                }
         };
 
-        var orderId = await handler.Handle(command, CancellationToken.None);
+        var newOrder = await handler.Handle(command, CancellationToken.None);
 
         var customer = await _customerAccountRepository.GetByIdAsync(1);
         
         Assert.NotNull(customer);
         Assert.True(customer.MembershipType.HasFlag(MembershipType.BookClub));
 
-        var order = await _purchaseOrderRepository.GetByIdAsync(orderId);
+        var order = await _purchaseOrderRepository.GetByIdAsync(newOrder.Id);
         Assert.NotNull(order);
         Assert.NotNull(order.ShippingSlipData);
     }
@@ -126,9 +126,9 @@ public class CreatePurchaseOrderTests
                }
         };
 
-        var orderId = await handler.Handle(command, CancellationToken.None);
+        var newOrder = await handler.Handle(command, CancellationToken.None);
 
-        var order = await _purchaseOrderRepository.GetByIdAsync(orderId);
+        var order = await _purchaseOrderRepository.GetByIdAsync(newOrder.Id);
 
         Assert.NotNull(order);
         Assert.NotNull(order.ShippingSlipData);
@@ -148,8 +148,8 @@ public class CreatePurchaseOrderTests
                }
         };
 
-        var orderId = await handler.Handle(command, CancellationToken.None);
-        var order = await _purchaseOrderRepository.GetByIdAsync(orderId);
+        var newOrder = await handler.Handle(command, CancellationToken.None);
+        var order = await _purchaseOrderRepository.GetByIdAsync(newOrder.Id);
 
         Assert.NotNull(order);
         Assert.Null(order.ShippingSlipData);

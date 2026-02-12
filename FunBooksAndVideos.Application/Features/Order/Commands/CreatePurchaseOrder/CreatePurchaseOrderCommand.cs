@@ -1,9 +1,8 @@
 ﻿using FunBooksAndVideos.Application.Contracts.Messaging;
-using MediatR;
-
+using FunBooksAndVideos.Domain;
 namespace FunBooksAndVideos.Application.Features.Purchase.Commands.CreatePurchaseOrder;
 
-public record CreatePurchaseOrderCommand : ITransactionalCommand<int>
+public record CreatePurchaseOrderCommand : ITransactionalCommand<PurchaseOrder>
 {
     public int CustomerId { get; set; }
 

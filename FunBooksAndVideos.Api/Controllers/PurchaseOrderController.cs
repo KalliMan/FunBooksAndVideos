@@ -56,10 +56,10 @@ namespace FunBooksAndVideos.Api.Controllers
                 }).ToList()
             };
 
-            var id = await _mediator.Send(command);
+            var result = await _mediator.Send(command);
 
-            _logger.LogInformation("Created new purchase order with ID {Id}", id);
-            return CreatedAtAction(nameof(Get), new { id }, null);
+            _logger.LogInformation("Created new purchase order with ID {Id}", result.Id);
+            return CreatedAtAction(nameof(Get), new { result.Id }, null);
         }
     }
 }
