@@ -41,7 +41,7 @@ public class CreatePurchaseOrderTests
 
         var result = await handler.Handle(command, CancellationToken.None);
 
-        Assert.True(result > 0);
+        Assert.True(result.Id > 0);
     }
 
     [Fact]
@@ -100,7 +100,7 @@ public class CreatePurchaseOrderTests
                }
         };
 
-        var orderId = await handler.Handle(command, CancellationToken.None);
+        var orderId = (await handler.Handle(command, CancellationToken.None)).Id;
 
         var customer = await _customerAccountRepository.GetByIdAsync(1);
         
@@ -126,7 +126,7 @@ public class CreatePurchaseOrderTests
                }
         };
 
-        var orderId = await handler.Handle(command, CancellationToken.None);
+        var orderId = (await handler.Handle(command, CancellationToken.None)).Id;
 
         var order = await _purchaseOrderRepository.GetByIdAsync(orderId);
 
@@ -148,7 +148,7 @@ public class CreatePurchaseOrderTests
                }
         };
 
-        var orderId = await handler.Handle(command, CancellationToken.None);
+        var orderId = (await handler.Handle(command, CancellationToken.None)).Id;
         var order = await _purchaseOrderRepository.GetByIdAsync(orderId);
 
         Assert.NotNull(order);

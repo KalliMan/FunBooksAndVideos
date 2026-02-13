@@ -3,7 +3,7 @@ using MediatR;
 
 namespace FunBooksAndVideos.Application.Features.Purchase.Commands.CreatePurchaseOrder;
 
-public record CreatePurchaseOrderCommand : ITransactionalCommand<int>
+public record CreatePurchaseOrderCommand : ITransactionalCommand<CreatePurchaseOrderResult>
 {
     public int CustomerId { get; set; }
 
